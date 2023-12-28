@@ -1,7 +1,15 @@
 import {Form} from "./components/form.js";
-import {mainPage} from "./components/mainPage.js";
-import {operations} from "./components/operations.js";
+import {MainPage} from "./components/mainPage.js";
+import {Operations} from "./components/operations.js";
 import {Auth} from "./services/auth.js";
+import {Consumption} from "./components/consumption";
+import {Create} from "./components/create";
+import {ChangeOperation} from "./components/changeOperation";
+import {Addmoney} from "./components/addmoney";
+import {Changemoney} from "./components/changemoney";
+import {Changepay} from "./components/changepay";
+import {Addpay} from "./components/addpay";
+import {Income} from "./components/income";
 
 export class Router {
     constructor() {
@@ -35,7 +43,7 @@ export class Router {
                 template: 'templates/operations.html',
                 styles: 'styles/operations.css',
                 load: () => {
-                    // new Operations('operations');
+                    new Operations('operations');
                 }
             },
             {
@@ -44,7 +52,7 @@ export class Router {
                 template: 'templates/mainPage.html',
                 styles: 'styles/mainPage.css',
                 load: () => {
-                    new mainPage();
+                    new MainPage();
                 }
             },
             {
@@ -53,7 +61,7 @@ export class Router {
                 template: 'templates/income.html',
                 styles: 'styles/income.css',
                 load: () => {
-                    // new Income('income');
+                    new Income('income');
                 }
             },
             {
@@ -62,7 +70,7 @@ export class Router {
                 template: 'templates/consumption.html',
                 styles: 'styles/income.css',
                 load: () => {
-
+                    new Consumption('consumption');
                 }
             },
             {
@@ -71,7 +79,7 @@ export class Router {
                 template: 'templates/create.html',
                 styles: 'styles/income.css',
                 load: () => {
-
+                    new Create('create');
                 }
             },
             {
@@ -80,7 +88,7 @@ export class Router {
                 template: 'templates/change-operation.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new ChangeOperation( 'changeOperation');
                 }
             },
             {
@@ -89,7 +97,7 @@ export class Router {
                 template: 'templates/addmoney.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Addmoney('addmoney')
                 }
             },
             {
@@ -98,7 +106,7 @@ export class Router {
                 template: 'templates/changemoney.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Changemoney('changemoney')
                 }
             },
             {
@@ -107,7 +115,7 @@ export class Router {
                 template: 'templates/changepay.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Changepay('changepay')
                 }
             },
             {
@@ -116,7 +124,7 @@ export class Router {
                 template: 'templates/addpay.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Addpay( 'addpay')
                 }
             },
         ]
@@ -130,6 +138,10 @@ export class Router {
             await Auth.logout();
             window.location.href = '#/login';
             return false;
+        }
+
+        if (urlRoute !== '#/login' && urlRoute !== '#/signup') {
+
         }
 
         const newRoute = this.routes.find(item => {

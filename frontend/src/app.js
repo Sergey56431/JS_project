@@ -1,4 +1,4 @@
-//import 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import {Router} from './router.js';
 
 class App {
