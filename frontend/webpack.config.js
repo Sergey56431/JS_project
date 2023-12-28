@@ -70,5 +70,12 @@ module.exports = {
         new SourceMapDevToolPlugin({
             filename: "[file].map"
         }),
+
+        // new webpack.ProvidePlugin({
+        //     $: "jquery",
+        //     jQuery: "jquery",
+        //     "window.jQuery": "jquery'",
+        //     "window.$": "jquery"
+        // })
     ],
 };

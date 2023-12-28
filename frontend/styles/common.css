@@ -347,3 +347,13 @@ span {
 .sidebar .card {
     border: 1px solid #0D6EFD;
 }
+
+.collapsed {
+    color: black;
+    background: transparent;
+    border-color: transparent;
+}
+
+.nav-item svg path {
+    fill: black;
+}

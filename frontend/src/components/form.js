@@ -163,9 +163,9 @@ export class Form {
                         id: result.user.id,
                         email: result.user.email
                     });
+                    location.href = '#/mainPage';
                     this.sidebar.style.display = "flex";
                     this.layout.style.justifyContent = 'flex-start';
-                    location.href = '#/mainPage';
                 }
 
             } catch (error) {
