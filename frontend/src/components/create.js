@@ -1,6 +1,7 @@
 import {Auth} from "../services/auth.js";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
+import {Balance} from "./balance.js";
 
 export class Create {
     constructor(page) {
@@ -13,6 +14,7 @@ export class Create {
         this.category = null;
         this.balanceToChange = 0;
 
+        Balance.sending();
         this.Categories();
     }
 

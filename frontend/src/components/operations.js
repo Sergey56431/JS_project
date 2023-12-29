@@ -3,6 +3,7 @@ import {Auth} from "../services/auth.js";
 import config from "../../config/config.js";
 import * as bootstrap from 'bootstrap';
 import {UrlManager} from '../utils/url-manager.js';
+import {Balance} from "./balance.js";
 
 
 export class Operations {
@@ -10,7 +11,7 @@ export class Operations {
     constructor(page) {
         this.createIncome = document.getElementById('createIncome');
         this.createExpense = document.getElementById('createExpense');
-        this.balance = document.getElementById('balance')
+        this.balance = document.getElementById('balance');
         this.popupExpAndInc = document.getElementById('exampleModal');
         this.popupDeleteOperation = document.getElementById('delete-operation');
         this.tableBody = document.getElementById('tableBody');
@@ -31,6 +32,8 @@ export class Operations {
                 new bootstrap.Tooltip(tooltipTriggerEl)
             })
         })()
+
+        Balance.sending();
         this.choiceOperation();
         this.getBalance();
         this.init();
@@ -65,7 +68,6 @@ export class Operations {
             }
         }
 
-
         this.buttonYear.onclick = async function () {
             try {
                 const result = await CustomHttp.request(config.host + '/operations/?period=year');
@@ -99,22 +101,22 @@ export class Operations {
             }
         }
 
-        // this.buttonInterval.onclick = async function () {
-        //
-        //     let from = that.buttonIntervalFrom.value.split('.');
-        //
-        //     let to = that.buttonIntervalTo.value.split('.');
-        //     from = from[2] + '-' + from[0] + '-' + from[1];
-        //     to = to[2] + '-' + to[0] + '-' + to[1];
-        //     try {
-        //         const result = await CustomHttp.request(config.host + '/operations/?period=interval&dateFrom=' + from + '&dateTo=' + to);
-        //         if (result) {
-        //             that.tableCreate(result);
-        //         }
-        //     } catch (error) {
-        //         console.log(error);
-        //     }
-        // }
+        this.buttonInterval.onclick = async function () {
+
+            let from = that.buttonIntervalFrom.value.split('.');
+
+            let to = that.buttonIntervalTo.value.split('.');
+            from = from[2] + '-' + from[0] + '-' + from[1];
+            to = to[2] + '-' + to[0] + '-' + to[1];
+            try {
+                const result = await CustomHttp.request(config.host + '/operations/?period=interval&dateFrom=' + from + '&dateTo=' + to);
+                if (result) {
+                    that.tableCreate(result);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     async getBalance() {

@@ -72,7 +72,7 @@
         </div>
         <div class="sidebar-bottom-content">
             <div class="balance">
-                <p>Баланс: <span id="balance"></span></p>
+                <p>Баланс: <a class="link-primary" href="#" data-bs-toggle="modal" data-bs-target="#putModal" id="balance"></a></p>
             </div>
             <div class="profile" id="user">
                 <div class="profile-img">
@@ -86,6 +86,23 @@
         </div>
     </aside>
     <div id="content"></div>
+</div>
+<div class="modal change-balance-window" id="putModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Введите ваш актуальный баланс</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <input id="nowBalance" type="text" class="form-control" placeholder="Ваш баланс" aria-label="Баланс">
+            </div>
+            <div class="modal-footer pb-4">
+                <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Отменить</button>
+                <button type="button" class="btn btn-primary" id="sendBalance" data-bs-dismiss="modal">Отправить</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

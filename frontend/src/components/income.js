@@ -1,11 +1,13 @@
 import config from "../../config/config.js";
 import {Auth} from "../services/auth.js";
 import {CustomHttp} from "../services/custom-http.js";
+import {Balance} from "./balance.js";
 
 export class Income {
 
     constructor(page) {
 
+        Balance.sending();
         this.init();
     }
 

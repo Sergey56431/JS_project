@@ -1,6 +1,7 @@
 import {Auth} from "../services/auth.js";
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
+import {Balance} from "./balance.js";
 
 export class Changepay {
 
@@ -8,6 +9,7 @@ export class Changepay {
         this.categoryInput = document.getElementById('categoryName');
         this.sendBtn = document.getElementById('send');
 
+        Balance.sending();
         this.addNameConsumption();
         this.newNameConsumption();
     }

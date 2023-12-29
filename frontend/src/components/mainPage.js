@@ -2,8 +2,9 @@ import {UrlManager} from '../utils/url-manager.js'
 import {CustomHttp} from "../services/custom-http.js";
 import Chart from "chart.js/auto";
 import config from "../../config/config.js";
-import {Auth} from "../services/auth";
+import {Auth} from "../services/auth.js";
 import * as bootstrap from 'bootstrap'
+import {Balance} from "./balance.js";
 
 export class MainPage {
     constructor(page) {
@@ -31,7 +32,7 @@ export class MainPage {
             })
         })()
 
-
+        Balance.sending();
         this.init();
         this.showUser();
     }
