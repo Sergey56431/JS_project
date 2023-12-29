@@ -2,17 +2,19 @@ import {Form} from "./components/form.js";
 import {MainPage} from "./components/mainPage.js";
 import {Operations} from "./components/operations.js";
 import {Auth} from "./services/auth.js";
-import {Consumption} from "./components/consumption";
-import {Create} from "./components/create";
-import {ChangeOperation} from "./components/changeOperation";
-import {Addmoney} from "./components/addmoney";
-import {Changemoney} from "./components/changemoney";
-import {Changepay} from "./components/changepay";
-import {Addpay} from "./components/addpay";
-import {Income} from "./components/income";
+import {Consumption} from "./components/consumption.js";
+import {Create} from "./components/create.js";
+import {ChangeOperation} from "./components/changeOperation.js";
+import {Addmoney} from "./components/addmoney.js";
+import {Changemoney} from "./components/changemoney.js";
+import {Changepay} from "./components/changepay.js";
+import {Addpay} from "./components/addpay.js";
+import {Income} from "./components/income.js";
 
 export class Router {
     constructor() {
+        this.layout = document.getElementById('layout');
+        this.sidebar = document.getElementById('sidebar');
         this.contentElement = document.getElementById('content');
         this.stylesElement = document.getElementById('styles');
         this.titleElement = document.getElementById('title');
@@ -141,7 +143,8 @@ export class Router {
         }
 
         if (urlRoute !== '#/login' && urlRoute !== '#/signup') {
-
+            this.sidebar.style.display = "block";
+            this.layout.style.justifyContent = 'flex-start';
         }
 
         const newRoute = this.routes.find(item => {

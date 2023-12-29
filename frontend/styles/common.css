@@ -357,3 +357,11 @@ span {
 .nav-item svg path {
     fill: black;
 }
+
+.link-primary {
+    text-decoration: none;
+}
+
+.change-balance-window .btn {
+    max-width: 200px;
+}

@@ -1,5 +1,6 @@
 import {CustomHttp} from "../services/custom-http.js";
 import config from "../../config/config.js";
+import {Balance} from "./balance.js";
 
 export class Addmoney {
 
@@ -7,6 +8,7 @@ export class Addmoney {
         this.categoryInput = document.getElementById('categoryName');
         this.sendBtn = document.getElementById('send');
 
+        Balance.sending();
         this.createdCategoryIncome();
     }
 

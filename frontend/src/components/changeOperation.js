@@ -1,6 +1,7 @@
 import {CustomHttp} from "../services/custom-http.js";
 import {Auth} from "../services/auth.js";
 import config from "../../config/config.js";
+import {Balance} from "./balance.js";
 
 export class ChangeOperation {
 
@@ -13,11 +14,13 @@ export class ChangeOperation {
         this.saveBtn = document.getElementById('createBtn');
         this.balanceToChange = 0;
         this.category = null;
+        this.dif = 0;
 
+        Balance.sending();
         this.init()
     }
 
-    async init () {
+    async init() {
         const userInfo = Auth.getUserInfo();
         if (!userInfo) {
             location.href = '#/login';
@@ -143,14 +146,16 @@ export class ChangeOperation {
             console.log(error);
         }
     }
+
     addInputNameOperations() {
-        let balance = Number(localStorage.getItem('balance'));
+
         console.log(typeof Number(this.sumField.value));
-        console.log(typeof balance);
+
         let type = localStorage.getItem('Type');
         let amount = localStorage.getItem('Amount');
         let date = localStorage.getItem('Date');
         let comment = localStorage.getItem('Comment');
+
         type = type.replace(/[^а-яёa-z]/gi, ' ');
         type = type.replace(/\s+/g, ' ').trim();
         amount = amount.replace(/[^0-9]/gi, ' ');
@@ -159,24 +164,21 @@ export class ChangeOperation {
         date = date.replace(/\s+/g, ' ').trim();
         comment = comment.replace(/[^а-яёa-z1-9]/gi, ' ');
         comment = comment.replace(/\s+/g, ' ').trim();
-
         date = date.split('.');
         date = date[2] + '-' + date [1] + '-' + date[0];
-
-        if (type === 'доход') {
-            this.typeField.value = 'income';
-            this.balanceToChange = balance + Number(this.sumField.value);
-            this.changeBalance();
-        } else {
-            this.typeField.value = 'expense';
-            this.balanceToChange = balance - this.sumField.value;
-
-            this.changeBalance();
-        }
+        amount = Number(amount);
         this.sumField.value = amount;
+        Number(this.sumField.value);
+        Number(this.dif);
         this.dateField.value = date;
         this.commentField.value = comment;
 
+        if (type === 'доход') {
+            this.typeField.value = 'income';
+
+        } else {
+            this.typeField.value = 'expense';
+        }
     }
 
     editOperation() {
@@ -190,9 +192,9 @@ export class ChangeOperation {
             if (!userInfo) {
                 location.href = '#/login'
             }
-
+            that.changeBalance();
             try {
-                const result = CustomHttp.request(config.host + '/operations/' + operationId, "POST", {
+                const result = CustomHttp.request(config.host + '/operations/' + operationId, "PUT", {
                     type: that.typeField.value,
                     category_id: that.category,
                     amount: that.sumField.value,
@@ -209,11 +211,30 @@ export class ChangeOperation {
         }
     }
 
-    changeBalance() {
-        JSON.stringify(this.balanceToChange)
-        let newBalance = CustomHttp.request(config.host + '/balance', "PUT", {
+    async changeBalance() {
+        let money = JSON.parse(localStorage.getItem('Amount'));
+        let balance = JSON.parse(localStorage.getItem('balance'));
+        money = money.replace(/[^0-9]/gi, ' ');
+        money = money.replace(/\s+/g, ' ').trim();
+        Number(money);
+        this.dif = money - Number(this.sumField.value);
+        if (this.typeField.value === 'income') {
+            if (this.dif !== 0) {
+                this.dif = -this.dif;
+                this.balanceToChange = balance + this.dif;
+            }
+        } if (this.typeField.value === 'expense') {
+            if (this.dif !== 0) {
+                this.dif = -this.dif;
+                this.balanceToChange = balance - (this.dif);
+            }
+
+        }
+        let putBalance = await CustomHttp.request(config.host + '/balance', "PUT", {
             newBalance: this.balanceToChange
         })
+        JSON.stringify(putBalance)
+        console.log(putBalance)
 
     }
 
