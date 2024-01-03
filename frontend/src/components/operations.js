@@ -12,7 +12,6 @@ export class Operations {
         this.createIncome = document.getElementById('createIncome');
         this.createExpense = document.getElementById('createExpense');
         this.balance = document.getElementById('balance');
-        this.popupExpAndInc = document.getElementById('exampleModal');
         this.popupDeleteOperation = document.getElementById('delete-operation');
         this.tableBody = document.getElementById('tableBody');
         this.buttonAll = document.getElementById('btn-check-2-outlined-5');
@@ -46,55 +45,18 @@ export class Operations {
             location.href = '#/login'
         }
 
-        this.buttonToday.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=today');
-                if (result) {
-                    that.tableCreate(result);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
+        this.buttonToday.onclick = () => getOperation('today');
+        this.buttonAll.onclick = () => getOperation('all');
+        this.buttonYear.onclick = () => getOperation('year');
+        this.buttonWeek.onclick = () => getOperation('week');
+        this.buttonMonth.onclick = () => getOperation('month');
 
-        this.buttonAll.onclick = async function () {
+        async function getOperation(period) {
             try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=all');
+                const result = await CustomHttp.request(config.host + '/operations/?period=' + period);
                 if (result) {
                     that.tableCreate(result);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
 
-        this.buttonYear.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=year');
-                if (result) {
-                    that.tableCreate(result);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        this.buttonWeek.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=week');
-                if (result) {
-                    that.tableCreate(result);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        this.buttonMonth.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=month');
-                if (result) {
-                    that.tableCreate(result);
                 }
             } catch (error) {
                 console.log(error);
@@ -104,10 +66,7 @@ export class Operations {
         this.buttonInterval.onclick = async function () {
 
             let from = that.buttonIntervalFrom.value.split('.');
-
             let to = that.buttonIntervalTo.value.split('.');
-            from = from[2] + '-' + from[0] + '-' + from[1];
-            to = to[2] + '-' + to[0] + '-' + to[1];
             try {
                 const result = await CustomHttp.request(config.host + '/operations/?period=interval&dateFrom=' + from + '&dateTo=' + to);
                 if (result) {
@@ -125,20 +84,17 @@ export class Operations {
             if (balance) {
                 this.balance.innerText = balance.balance + "$";
                 localStorage.setItem("balance", JSON.stringify(balance.balance))
-                console.log(balance.balance)
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error)
         }
     }
 
-    choiceOperation () {
-        if (this.createIncome.onclick){
+    choiceOperation() {
+        if (this.createIncome.onclick) {
             localStorage.setItem('incomePage', JSON.stringify(this.createIncome.value))
-            console.log(this.createIncome.value)
         }
-        if (this.createExpense.onclick){
+        if (this.createExpense.onclick) {
             localStorage.setItem('expensePage', JSON.stringify(this.createExpense.value))
         }
     }
@@ -157,7 +113,6 @@ export class Operations {
                 });
 
             }
-            console.log(this.buttons[1])
 
             const tableItem = document.createElement('tr');
             tableItem.setAttribute('id', item.id);
@@ -185,7 +140,8 @@ export class Operations {
             tableItemAmount.innerText = item.amount + '$';
 
             let str = item.date;
-            let arr = str.split('-');
+            let divider = str.includes('-') ? '-' : str.includes('.') ? '.' : '/';
+            let arr = str.split(divider);
             let res = arr[2] + '.' + arr[1] + '.' + arr[0];
 
             const tableItemDate = document.createElement('td');

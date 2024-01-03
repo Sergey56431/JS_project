@@ -18,6 +18,8 @@ export class Router {
         this.contentElement = document.getElementById('content');
         this.stylesElement = document.getElementById('styles');
         this.titleElement = document.getElementById('title');
+        this.pageSelector = document.querySelectorAll('a[href]');
+
 
         this.routes = [
 
@@ -134,7 +136,6 @@ export class Router {
 
     async openRoute() {
         const urlRoute = window.location.hash;
-        console.log(urlRoute)
 
         if (urlRoute === '#/logout') {
             await Auth.logout();
@@ -154,6 +155,15 @@ export class Router {
         if (!newRoute) {
             window.location.href = '#/login';
             return;
+        }
+
+        for (let i = 0; i < this.pageSelector.length; i++) {
+            if (this.pageSelector[i].href.includes(urlRoute)){
+                this.pageSelector[i].classList.add('active');
+            }
+            if(!this.pageSelector[i].href.includes(urlRoute)){
+                this.pageSelector[i].classList.remove('active');
+            }
         }
 
         this.contentElement.innerHTML =

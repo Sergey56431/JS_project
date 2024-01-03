@@ -49,19 +49,20 @@ span {
     color: white;
 }
 
-.active path {
+.active,
+.active svg path {
+    background: #0D6EFD;
+    color: #FFFFFF;
     fill: #FFFFFF;
 }
 
-
-.not-active path {
-    fill: #052C65;
+.nav-link path {
+    fill: black;
 }
 
 .content .btn-success:hover {
     background: green;
 }
-
 
 .content .btn-primary:hover {
     background: #004cc2;
@@ -86,7 +87,7 @@ span {
 
 .date {
     text-align: center;
-    width: 100px;
+    width: 115px;
     border: none;
     outline: none;
 }
@@ -335,9 +336,9 @@ span {
     color: #FFFFFF;
 }
 
-.nav-item .btn{
+.nav-item .btn {
     margin: 0;
-    max-width: 178px;
+    max-width: 179px;
 }
 
 .card-body {
@@ -352,10 +353,6 @@ span {
     color: black;
     background: transparent;
     border-color: transparent;
-}
-
-.nav-item svg path {
-    fill: black;
 }
 
 .link-primary {
