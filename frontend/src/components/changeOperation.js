@@ -149,8 +149,6 @@ export class ChangeOperation {
 
     addInputNameOperations() {
 
-        console.log(typeof Number(this.sumField.value));
-
         let type = localStorage.getItem('Type');
         let amount = localStorage.getItem('Amount');
         let date = localStorage.getItem('Date');
@@ -234,8 +232,6 @@ export class ChangeOperation {
             newBalance: this.balanceToChange
         })
         JSON.stringify(putBalance)
-        console.log(putBalance)
-
     }
 
     removeLocalStorage() {

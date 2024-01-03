@@ -51,15 +51,13 @@ export class MainPage {
     buildGraph(result) {
         let expenseArrAmount = [];
         let expenseArrCategory = [];
+        let incomeArrAmount = [];
+        let incomeArrCategory = [];
         result.forEach(item => {
             if (item.type === 'expense') {
                 expenseArrAmount.push(item.amount)
                 expenseArrCategory.push(item.category)
             }
-        })
-        let incomeArrAmount = [];
-        let incomeArrCategory = [];
-        result.forEach(item => {
             if (item.type === 'income') {
                 incomeArrAmount.push(item.amount)
                 incomeArrCategory.push(item.category)
@@ -122,80 +120,21 @@ export class MainPage {
             location.href = '#/login'
         }
 
-        this.buttonToday.onclick = async function () {
+        this.buttonToday.onclick = () => getOperation('today');
+        this.buttonAll.onclick = () => getOperation('all');
+        this.buttonYear.onclick = () => getOperation('year');
+        this.buttonWeek.onclick = () => getOperation('week');
+        this.buttonMonth.onclick = () => getOperation('month');
+
+        async function getOperation (period) {
             try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=today');
+                const result = await CustomHttp.request(config.host + '/operations/?period=' + period);
                 if (result) {
                     if (that.expensesChartView != null && that.incomeChartView != null) {
                         that.expensesChartView.destroy();
                         that.incomeChartView.destroy();
                     }
                     that.buildGraph(result)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        this.buttonAll.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=all');
-                if (result) {
-                    if (that.expensesChartView != null && that.incomeChartView != null) {
-                        that.expensesChartView.destroy();
-                        that.incomeChartView.destroy();
-                    }
-                    that.buildGraph(result)
-                    console.log(result)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-
-        this.buttonYear.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=year');
-                if (result) {
-                    if (that.expensesChartView != null && that.incomeChartView != null) {
-                        that.expensesChartView.destroy();
-                        that.incomeChartView.destroy();
-                    }
-                    that.buildGraph(result)
-                    console.log(result)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        this.buttonWeek.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=week');
-                if (result) {
-                    if (that.expensesChartView != null && that.incomeChartView != null) {
-                        that.expensesChartView.destroy();
-                        that.incomeChartView.destroy();
-                    }
-                    that.buildGraph(result)
-                    console.log(result)
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        this.buttonMonth.onclick = async function () {
-            try {
-                const result = await CustomHttp.request(config.host + '/operations/?period=month');
-                if (result) {
-                    if (that.expensesChartView != null && that.incomeChartView != null) {
-                        that.expensesChartView.destroy();
-                        that.incomeChartView.destroy();
-                    }
-                    that.buildGraph(result)
-                    console.log(result)
                 }
             } catch (error) {
                 console.log(error);
@@ -205,10 +144,7 @@ export class MainPage {
         this.buttonInterval.onclick = async function () {
 
             let from = that.buttonIntervalFrom.value.split('.')
-
             let to = that.buttonIntervalTo.value.split('.')
-            from = from[2] + '-' + from[0] + '-' + from[1]
-            to = to[2] + '-' + to[0] + '-' + to[1]
             try {
                 const result = await CustomHttp.request(config.host + '/operations/?period=interval&dateFrom=' + from + '&dateTo=' + to);
                 if (result) {

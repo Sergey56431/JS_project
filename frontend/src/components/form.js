@@ -126,8 +126,8 @@ export class Form {
                 try {
                     const result = await CustomHttp.request(config.host + '/signup', 'POST', {
                         email: email,
-                        lastName: this.fullName[1],//this.fields.find(item => item.name === 'name').element.value,
-                        name: this.fullName[0],//this.fields.find(item => item.name === 'fullName').element.value,
+                        lastName: this.fullName[1],
+                        name: this.fullName[0],
                         password: password,
                         passwordRepeat: this.fields.find(item => item.name === 'passwordRepeat').element.value,
                     })
@@ -137,7 +137,7 @@ export class Form {
                             throw new Error(result.message);
                         }
                         sessionStorage.setItem('user', JSON.stringify(result.user));
-                        //location.href = '#/mainPage';
+
                     }
 
                 } catch (error) {
@@ -146,9 +146,9 @@ export class Form {
             }
             try {
                 const result = await CustomHttp.request(config.host + '/login', 'POST', {
-                    email: email,//this.fields.find(item => item.name === 'email').element.value,
+                    email: email,
                     password: password,
-                    rememberMe: this.rememberMe//this.fields.find(item => item.name === 'password').element.value,
+                    rememberMe: this.rememberMe
                 })
 
                 if (result) {
@@ -164,8 +164,6 @@ export class Form {
                         email: result.user.email
                     });
                     location.href = '#/mainPage';
-                    // this.sidebar.style.display = "flex";
-                    // this.layout.style.justifyContent = 'flex-start';
                 }
 
             } catch (error) {

@@ -5,16 +5,15 @@ export class Balance {
 
     constructor() {
         this.balanceCoin = document.getElementById('balance')
-
     }
 
-    static sending() {
+    static async sending() {
         const that = this
         let balanceInput = document.getElementById('nowBalance');
         let sendBalance = document.getElementById('sendBalance');
         sendBalance.onclick = function () {
             JSON.stringify(balanceInput.value);
-            let balance = CustomHttp.request(config.host + '/balance', "PUT", {
+            CustomHttp.request(config.host + '/balance', "PUT", {
                 newBalance: balanceInput.value
             })
         }
@@ -25,7 +24,6 @@ export class Balance {
         if (getBalance) {
             this.balanceCoin.innerText = getBalance.balance + "$";
             localStorage.setItem("balance", JSON.stringify(getBalance.balance))
-            console.log(getBalance.balance)
         }
     }
 }

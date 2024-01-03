@@ -147,7 +147,7 @@ export class Create {
         }
 
         JSON.stringify(this.balanceToChange);
-        let newBalanceSend = await CustomHttp.request(config.host + '/balance', "PUT", {
+        await CustomHttp.request(config.host + '/balance', "PUT", {
             newBalance: this.balanceToChange
         })
     }

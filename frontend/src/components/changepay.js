@@ -21,7 +21,7 @@ export class Changepay {
         this.categoryInput.placeholder = this.result;
     }
 
-    newNameConsumption() {
+     async newNameConsumption() {
         const that = this;
         let resultId = localStorage.getItem('BlockId');
         JSON.parse(resultId);
@@ -34,7 +34,7 @@ export class Changepay {
             }
 
             try {
-                const result = CustomHttp.request(config.host + '/categories/expense/' + resultId, "PUT", {
+                CustomHttp.request(config.host + '/categories/expense/' + resultId, "PUT", {
                     title: that.categoryInput.value
                 });
             } catch (error) {

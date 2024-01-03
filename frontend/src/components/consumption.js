@@ -111,7 +111,6 @@ export class Consumption {
             item.onclick = function () {
                 that.popupDeleteCategory.onclick = function () {
                     let resultId = item.parentElement.parentElement.parentElement.id
-                    console.log(resultId);
                     try {
                         const result = CustomHttp.request(config.host + '/categories/expense/' + resultId, "DELETE");
                         if (result) {
