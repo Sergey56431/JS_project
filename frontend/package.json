@@ -27,6 +27,7 @@
     "http-proxy": "^1.18.1",
     "iconv-lite": "^0.6.3",
     "install": "^0.13.0",
+    "jquery-datepicker": "^1.12.3",
     "lodash": "^4.17.21",
     "mime": "^1.6.0",
     "minimist": "^1.2.8",
@@ -71,6 +72,7 @@
     "style-loader": "^3.3.3",
     "webpack": "^5.79.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.13.3"
+    "webpack-dev-server": "^4.13.3",
+    "webpack-jquery-ui": "^2.0.1"
   }
 }

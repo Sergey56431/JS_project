@@ -7,7 +7,7 @@
     margin-bottom: 20px;
 }
 
-.btn:not(.btn-danger) {
+.btn:not(.btn-danger, .btn-primary) {
     padding: 11px 16px;
     margin: 0;
     max-width: 105px;

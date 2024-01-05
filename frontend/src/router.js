@@ -1,13 +1,25 @@
 import {Form} from "./components/form.js";
-import {mainPage} from "./components/mainPage.js";
-import {operations} from "./components/operations.js";
+import {MainPage} from "./components/mainPage.js";
+import {Operations} from "./components/operations.js";
 import {Auth} from "./services/auth.js";
+import {Consumption} from "./components/consumption.js";
+import {Create} from "./components/create.js";
+import {ChangeOperation} from "./components/changeOperation.js";
+import {Addmoney} from "./components/addmoney.js";
+import {Changemoney} from "./components/changemoney.js";
+import {Changepay} from "./components/changepay.js";
+import {Addpay} from "./components/addpay.js";
+import {Income} from "./components/income.js";
 
 export class Router {
     constructor() {
+        this.layout = document.getElementById('layout');
+        this.sidebar = document.getElementById('sidebar');
         this.contentElement = document.getElementById('content');
         this.stylesElement = document.getElementById('styles');
         this.titleElement = document.getElementById('title');
+        this.pageSelector = document.querySelectorAll('a[href]');
+
 
         this.routes = [
 
@@ -35,7 +47,7 @@ export class Router {
                 template: 'templates/operations.html',
                 styles: 'styles/operations.css',
                 load: () => {
-                    // new Operations('operations');
+                    new Operations('operations');
                 }
             },
             {
@@ -44,7 +56,7 @@ export class Router {
                 template: 'templates/mainPage.html',
                 styles: 'styles/mainPage.css',
                 load: () => {
-                    new mainPage();
+                    new MainPage();
                 }
             },
             {
@@ -53,7 +65,7 @@ export class Router {
                 template: 'templates/income.html',
                 styles: 'styles/income.css',
                 load: () => {
-                    // new Income('income');
+                    new Income('income');
                 }
             },
             {
@@ -62,7 +74,7 @@ export class Router {
                 template: 'templates/consumption.html',
                 styles: 'styles/income.css',
                 load: () => {
-
+                    new Consumption('consumption');
                 }
             },
             {
@@ -71,7 +83,7 @@ export class Router {
                 template: 'templates/create.html',
                 styles: 'styles/income.css',
                 load: () => {
-
+                    new Create('create');
                 }
             },
             {
@@ -80,7 +92,7 @@ export class Router {
                 template: 'templates/change-operation.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new ChangeOperation( 'changeOperation');
                 }
             },
             {
@@ -89,7 +101,7 @@ export class Router {
                 template: 'templates/addmoney.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Addmoney('addmoney')
                 }
             },
             {
@@ -98,7 +110,7 @@ export class Router {
                 template: 'templates/changemoney.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Changemoney('changemoney')
                 }
             },
             {
@@ -107,7 +119,7 @@ export class Router {
                 template: 'templates/changepay.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Changepay('changepay')
                 }
             },
             {
@@ -116,7 +128,7 @@ export class Router {
                 template: 'templates/addpay.html',
                 styles: 'styles/addmoney.css',
                 load: () => {
-
+                    new Addpay( 'addpay')
                 }
             },
         ]
@@ -124,12 +136,16 @@ export class Router {
 
     async openRoute() {
         const urlRoute = window.location.hash;
-        console.log(urlRoute)
 
         if (urlRoute === '#/logout') {
             await Auth.logout();
             window.location.href = '#/login';
             return false;
+        }
+
+        if (urlRoute !== '#/login' && urlRoute !== '#/signup') {
+            this.sidebar.style.display = "block";
+            this.layout.style.justifyContent = 'flex-start';
         }
 
         const newRoute = this.routes.find(item => {
@@ -139,6 +155,15 @@ export class Router {
         if (!newRoute) {
             window.location.href = '#/login';
             return;
+        }
+
+        for (let i = 0; i < this.pageSelector.length; i++) {
+            if (this.pageSelector[i].href.includes(urlRoute)){
+                this.pageSelector[i].classList.add('active');
+            }
+            if(!this.pageSelector[i].href.includes(urlRoute)){
+                this.pageSelector[i].classList.remove('active');
+            }
         }
 
         this.contentElement.innerHTML =

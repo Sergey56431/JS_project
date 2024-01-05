@@ -15,11 +15,10 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "install": "^0.13.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lowdb": "^3.0.0",
     "moment": "^2.29.4",
     "npm": "^8.19.1",
-    "services": "^0.0.3",
     "taffy": "^2.6.2",
     "taffydb": "^2.7.3"
   },

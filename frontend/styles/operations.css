@@ -56,3 +56,8 @@
     padding: 0;
     border-top: none;
 }
+
+.delete-btn {
+    border: none;
+    background: none;
+}
